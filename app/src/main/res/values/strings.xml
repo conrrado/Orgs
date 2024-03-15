@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Orgs</string>
+    <string name="type_a_name">Type a name for the product</string>
+    <string name="type_a_description_for_product">Type a description for the product</string>
+    <string name="type_a_price_for_the_product">Type a price for the product</string>
+    <string name="save">Save</string>
 </resources>
