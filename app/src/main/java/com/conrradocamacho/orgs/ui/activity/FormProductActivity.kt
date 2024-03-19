@@ -7,19 +7,23 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.dao.ProductDAO
+import com.conrradocamacho.orgs.databinding.ActivityFormProductBinding
 import com.conrradocamacho.orgs.model.Product
 import java.math.BigDecimal
 
 class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
 
+    private val binding by lazy { ActivityFormProductBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         configSaveButton()
+        setContentView(binding.root)
     }
 
     private fun configSaveButton() {
-        val save = findViewById<Button>(R.id.form_product_save)
+        val save = binding.formProductSave
         val dao = ProductDAO()
         save.setOnClickListener {
             val product = createProduct()
@@ -29,9 +33,9 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
     }
 
     private fun createProduct(): Product {
-        val nameEdit = findViewById<EditText>(R.id.form_product_name_edit)
-        val descriptionEdit = findViewById<EditText>(R.id.form_product_description_edit)
-        val priceEdit = findViewById<EditText>(R.id.form_product_price_edit)
+        val nameEdit = binding.formProductNameEdit
+        val descriptionEdit = binding.formProductDescriptionEdit
+        val priceEdit = binding.formProductPriceEdit
         val stringValue = priceEdit.text.toString()
         val value = if (stringValue.isBlank()) {
             BigDecimal.ZERO

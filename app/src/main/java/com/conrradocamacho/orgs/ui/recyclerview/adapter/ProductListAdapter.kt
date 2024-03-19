@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.conrradocamacho.orgs.R
+import com.conrradocamacho.orgs.databinding.ProductItemBinding
 import com.conrradocamacho.orgs.model.Product
 
 class ProductListAdapter(
@@ -16,8 +17,8 @@ class ProductListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.product_item, parent, false)
-        return ViewHolder(view)
+        val binding = ProductItemBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProductListAdapter.ViewHolder, position: Int) {
@@ -32,13 +33,15 @@ class ProductListAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
+
+        private val name = binding.productItemName
+        private val descriptionItem = binding.productItemDescription
+        private val price = binding.productItemPrice
+
         fun bind(product: Product) {
-            val name = itemView.findViewById<TextView>(R.id.product_item_name)
             name.text = product.name
-            val description = itemView.findViewById<TextView>(R.id.product_item_description)
-            description.text = product.description
-            val price = itemView.findViewById<TextView>(R.id.product_item_price)
+            descriptionItem.text = product.description
             price.text = product.price.toPlainString()
         }
     }
