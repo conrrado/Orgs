@@ -9,8 +9,10 @@ import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.model.Product
 
 class ProductListAdapter(
-    private val products: List<Product>
+    products: List<Product>
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
+
+    private val products = products.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,14 +26,19 @@ class ProductListAdapter(
     }
 
     override fun getItemCount(): Int = products.size
+    fun update(products: List<Product>) {
+        this.products.clear()
+        this.products.addAll(products)
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         fun bind(product: Product) {
-            val name = itemView.findViewById<TextView>(R.id.name)
+            val name = itemView.findViewById<TextView>(R.id.product_item_name)
             name.text = product.name
-            val description = itemView.findViewById<TextView>(R.id.description)
+            val description = itemView.findViewById<TextView>(R.id.product_item_description)
             description.text = product.description
-            val price = itemView.findViewById<TextView>(R.id.price)
+            val price = itemView.findViewById<TextView>(R.id.product_item_price)
             price.text = product.price.toPlainString()
         }
     }

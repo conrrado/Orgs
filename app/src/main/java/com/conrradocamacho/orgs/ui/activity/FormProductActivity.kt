@@ -1,7 +1,6 @@
 package com.conrradocamacho.orgs.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -12,35 +11,38 @@ import com.conrradocamacho.orgs.model.Product
 import java.math.BigDecimal
 
 class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        configSaveButton()
+    }
 
-        val nameEdit = findViewById<EditText>(R.id.nameEdit)
-        val descriptionEdit = findViewById<EditText>(R.id.descriptionEdit)
-        val priceEdit = findViewById<EditText>(R.id.priceEdit)
-
-        val save = findViewById<Button>(R.id.save)
+    private fun configSaveButton() {
+        val save = findViewById<Button>(R.id.form_product_save)
+        val dao = ProductDAO()
         save.setOnClickListener {
-
-            val stringValue = priceEdit.text.toString()
-            val value = if (stringValue.isBlank()) {
-                BigDecimal.ZERO
-            } else {
-                BigDecimal(stringValue)
-            }
-
-            val product = Product(
-                name = nameEdit.text.toString(),
-                description = descriptionEdit.text.toString(),
-                price = value
-            )
-
-            Log.i("FormProductActivity", "onCreate: $product")
-            val dao = ProductDAO()
+            val product = createProduct()
             dao.add(product)
-            Log.i("FormProductActivity", "onCreate: ${dao.searchAll()}")
             finish()
         }
+    }
+
+    private fun createProduct(): Product {
+        val nameEdit = findViewById<EditText>(R.id.form_product_name_edit)
+        val descriptionEdit = findViewById<EditText>(R.id.form_product_description_edit)
+        val priceEdit = findViewById<EditText>(R.id.form_product_price_edit)
+        val stringValue = priceEdit.text.toString()
+        val value = if (stringValue.isBlank()) {
+            BigDecimal.ZERO
+        } else {
+            BigDecimal(stringValue)
+        }
+
+        return Product(
+            name = nameEdit.text.toString(),
+            description = descriptionEdit.text.toString(),
+            price = value
+        )
     }
 }
