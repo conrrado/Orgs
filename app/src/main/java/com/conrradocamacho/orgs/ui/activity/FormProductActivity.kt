@@ -17,9 +17,9 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         enableEdgeToEdge()
         configSaveButton()
-        setContentView(binding.root)
     }
 
     private fun configSaveButton() {

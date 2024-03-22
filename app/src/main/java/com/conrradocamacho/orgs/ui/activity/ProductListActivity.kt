@@ -19,9 +19,9 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         configRecyclerView()
         configFab()
-        setContentView(binding.root)
     }
 
     override fun onResume() {
