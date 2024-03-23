@@ -1,13 +1,13 @@
 package com.conrradocamacho.orgs.ui.recyclerview.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.databinding.ProductItemBinding
 import com.conrradocamacho.orgs.model.Product
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.Locale
 
 class ProductListAdapter(
     products: List<Product>
@@ -42,7 +42,13 @@ class ProductListAdapter(
         fun bind(product: Product) {
             name.text = product.name
             descriptionItem.text = product.description
-            price.text = product.price.toPlainString()
+            price.text = formatPrice(product.price)
+        }
+
+        private fun formatPrice(price: BigDecimal): String {
+            val formatter: NumberFormat = NumberFormat
+                .getCurrencyInstance(Locale("pt", "br"))
+            return formatter.format(price)
         }
     }
 

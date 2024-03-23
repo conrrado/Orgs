@@ -4,12 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.dao.ProductDAO
 import com.conrradocamacho.orgs.databinding.ActivityProductListBinding
 import com.conrradocamacho.orgs.ui.recyclerview.adapter.ProductListAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
