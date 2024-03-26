@@ -3,6 +3,8 @@ package com.conrradocamacho.orgs.ui.recyclerview.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.databinding.ProductItemBinding
 import com.conrradocamacho.orgs.model.Product
 import java.math.BigDecimal
@@ -35,6 +37,7 @@ class ProductListAdapter(
 
     class ViewHolder(binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
 
+        private val image = binding.productItemImage
         private val name = binding.productItemName
         private val descriptionItem = binding.productItemDescription
         private val price = binding.productItemPrice
@@ -43,6 +46,7 @@ class ProductListAdapter(
             name.text = product.name
             descriptionItem.text = product.description
             price.text = formatPrice(product.price)
+            image.load(R.drawable.imagem_padrao)
         }
 
         private fun formatPrice(price: BigDecimal): String {
