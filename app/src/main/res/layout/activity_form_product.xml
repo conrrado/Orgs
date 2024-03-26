@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,65 +17,65 @@
             android:id="@+id/form_product_image"
             android:layout_width="0dp"
             android:layout_height="200dp"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:importantForAccessibility="no"
-            app:srcCompat="@drawable/produto_1" />
+            app:srcCompat="@drawable/imagem_padrao" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/form_product_name_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/form_product_image">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/form_product_name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/type_a_name" />
+                android:hint="@string/type_a_name"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/form_product_description_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintStart_toStartOf="@id/form_product_name_layout"
             app:layout_constraintEnd_toEndOf="@id/form_product_name_layout"
+            app:layout_constraintStart_toStartOf="@id/form_product_name_layout"
             app:layout_constraintTop_toBottomOf="@id/form_product_name_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/form_product_description_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/type_a_description_for_product" />
+                android:hint="@string/type_a_description_for_product"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/form_product_price_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintStart_toStartOf="@id/form_product_description_layout"
             app:layout_constraintEnd_toEndOf="@id/form_product_description_layout"
+            app:layout_constraintStart_toStartOf="@id/form_product_description_layout"
             app:layout_constraintTop_toBottomOf="@id/form_product_description_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/form_product_price_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="@string/type_a_price_for_the_product" />
+                android:hint="@string/type_a_price_for_the_product"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -85,11 +84,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@string/save"
-            app:layout_constraintVertical_bias="1"
-            app:layout_constraintTop_toBottomOf="@id/form_product_price_layout"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/form_product_price_layout"
+            app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

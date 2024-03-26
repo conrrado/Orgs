@@ -2,6 +2,7 @@ package com.conrradocamacho.orgs.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.dao.ProductDAO
@@ -18,6 +19,14 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         setContentView(binding.root)
         enableEdgeToEdge()
         configSaveButton()
+
+        binding.formProductImage.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setView(R.layout.form_image)
+                .setPositiveButton("Confirmar") { _, _ -> }
+                .setNegativeButton("Cancelar") {_, _ -> }
+                .show()
+        }
     }
 
     private fun configSaveButton() {

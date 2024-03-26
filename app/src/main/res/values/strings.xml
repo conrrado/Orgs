@@ -5,4 +5,6 @@
     <string name="type_a_price_for_the_product">Price</string>
     <string name="save">Save</string>
     <string name="add_a_new_product">Add a new product</string>
+    <string name="refresh">Refresh</string>
+    <string name="image_url">Image URL</string>
 </resources>
