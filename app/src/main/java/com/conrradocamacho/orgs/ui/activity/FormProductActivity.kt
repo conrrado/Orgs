@@ -15,6 +15,7 @@ import java.math.BigDecimal
 class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
 
     private val binding by lazy { ActivityFormProductBinding.inflate(layoutInflater) }
+    private var url: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,7 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
             AlertDialog.Builder(this)
                 .setView(bindingFormImage.root)
                 .setPositiveButton("Confirmar") { _, _ ->
-                    val url = bindingFormImage.formImageUrlEdit.text.toString()
+                    url = bindingFormImage.formImageUrlEdit.text.toString()
                     binding.formProductImage.load(url)
                 }
                 .setNegativeButton("Cancelar") {_, _ -> }
@@ -64,7 +65,8 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         return Product(
             name = nameEdit.text.toString(),
             description = descriptionEdit.text.toString(),
-            price = value
+            price = value,
+            image = url
         )
     }
 }

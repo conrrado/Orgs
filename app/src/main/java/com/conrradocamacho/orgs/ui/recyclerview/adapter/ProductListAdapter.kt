@@ -46,7 +46,8 @@ class ProductListAdapter(
             name.text = product.name
             descriptionItem.text = product.description
             price.text = formatPrice(product.price)
-            image.load(R.drawable.imagem_padrao)
+            val url = product.image ?: R.drawable.imagem_padrao
+            image.load(url)
         }
 
         private fun formatPrice(price: BigDecimal): String {
