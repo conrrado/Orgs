@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.databinding.ProductItemBinding
+import com.conrradocamacho.orgs.extensions.tryLoadingImage
 import com.conrradocamacho.orgs.model.Product
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -46,8 +47,7 @@ class ProductListAdapter(
             name.text = product.name
             descriptionItem.text = product.description
             price.text = formatPrice(product.price)
-            val url = product.image ?: R.drawable.imagem_padrao
-            image.load(url)
+            image.tryLoadingImage(product.image)
         }
 
         private fun formatPrice(price: BigDecimal): String {
