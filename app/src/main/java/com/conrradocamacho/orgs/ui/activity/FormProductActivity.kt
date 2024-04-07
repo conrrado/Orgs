@@ -20,6 +20,7 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         enableEdgeToEdge()
+        title = "Cadastrar produto"
         configSaveButton()
 
         binding.formProductImage.setOnClickListener {

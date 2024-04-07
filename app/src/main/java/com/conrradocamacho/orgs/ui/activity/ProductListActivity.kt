@@ -2,11 +2,13 @@ package com.conrradocamacho.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.dao.ProductDAO
 import com.conrradocamacho.orgs.databinding.ActivityProductListBinding
+import com.conrradocamacho.orgs.model.Product
 import com.conrradocamacho.orgs.ui.recyclerview.adapter.ProductListAdapter
 
 class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
@@ -32,6 +34,16 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
         val recyclerViewProduct = binding.productListRecyclerView
         recyclerViewProduct.layoutManager = LinearLayoutManager(this)
         recyclerViewProduct.adapter = adapter
+        adapter.onClickProductItem = object : ProductListAdapter.OnClickProductItem {
+            override fun onClickItem(product: Product) {
+                Log.i(ProductListActivity::class.simpleName, "click on item: ${product.name}")
+
+                val intent = Intent(baseContext, DetailProductActivity::class.java).apply {
+                    putExtra("product", product)
+                }
+                startActivity(intent)
+            }
+        }
     }
 
     private fun configFab() {

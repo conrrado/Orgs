@@ -1,20 +1,26 @@
 package com.conrradocamacho.orgs.ui.recyclerview.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.databinding.ProductItemBinding
+import com.conrradocamacho.orgs.extensions.formatPrice
 import com.conrradocamacho.orgs.extensions.tryLoadingImage
 import com.conrradocamacho.orgs.model.Product
-import java.math.BigDecimal
-import java.text.NumberFormat
-import java.util.Locale
 
 class ProductListAdapter(
-    products: List<Product>
+    products: List<Product>,
+    var onClickProductItem: OnClickProductItem = object : OnClickProductItem {
+        override fun onClickItem(product: Product) {
+
+        }
+    }
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
+
+    interface OnClickProductItem {
+        fun onClickItem(product: Product)
+    }
 
     private val products = products.toMutableList()
 
@@ -36,24 +42,30 @@ class ProductListAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         private val image = binding.productItemImage
         private val name = binding.productItemName
         private val descriptionItem = binding.productItemDescription
         private val price = binding.productItemPrice
 
-        fun bind(product: Product) {
-            name.text = product.name
-            descriptionItem.text = product.description
-            price.text = formatPrice(product.price)
-            image.tryLoadingImage(product.image)
+        private lateinit var product: Product
+
+        init {
+            itemView.setOnClickListener {
+                Log.i(ProductListAdapter::class.simpleName, "Click on item")
+                if (::product.isInitialized) {
+                    onClickProductItem.onClickItem(product)
+                }
+            }
         }
 
-        private fun formatPrice(price: BigDecimal): String {
-            val formatter: NumberFormat = NumberFormat
-                .getCurrencyInstance(Locale("pt", "br"))
-            return formatter.format(price)
+        fun bind(product: Product) {
+            this.product = product
+            name.text = product.name
+            descriptionItem.text = product.description
+            price.formatPrice(product.price)
+            image.tryLoadingImage(product.image)
         }
     }
 
