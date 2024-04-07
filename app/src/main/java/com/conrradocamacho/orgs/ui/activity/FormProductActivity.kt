@@ -2,15 +2,13 @@ package com.conrradocamacho.orgs.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import coil.load
 import com.conrradocamacho.orgs.R
 import com.conrradocamacho.orgs.dao.ProductDAO
 import com.conrradocamacho.orgs.databinding.ActivityFormProductBinding
-import com.conrradocamacho.orgs.databinding.FormImageBinding
 import com.conrradocamacho.orgs.extensions.tryLoadingImage
 import com.conrradocamacho.orgs.model.Product
+import com.conrradocamacho.orgs.ui.dialog.FormImageDialog
 import java.math.BigDecimal
 
 class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
@@ -25,20 +23,10 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         configSaveButton()
 
         binding.formProductImage.setOnClickListener {
-            val bindingFormImage = FormImageBinding.inflate(layoutInflater)
-            bindingFormImage.formImageButtonRefresh.setOnClickListener {
-                val url = bindingFormImage.formImageUrlEdit.text.toString()
-                bindingFormImage.formImageImage.tryLoadingImage(url)
+            FormImageDialog(this).show {
+                url = it
+                binding.formProductImage.tryLoadingImage(url)
             }
-
-            AlertDialog.Builder(this)
-                .setView(bindingFormImage.root)
-                .setPositiveButton("Confirmar") { _, _ ->
-                    url = bindingFormImage.formImageUrlEdit.text.toString()
-                    binding.formProductImage.tryLoadingImage(url)
-                }
-                .setNegativeButton("Cancelar") {_, _ -> }
-                .show()
         }
     }
 
