@@ -23,7 +23,7 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         configSaveButton()
 
         binding.formProductImage.setOnClickListener {
-            FormImageDialog(this).show {
+            FormImageDialog(this).show(url) {
                 url = it
                 binding.formProductImage.tryLoadingImage(url)
             }
