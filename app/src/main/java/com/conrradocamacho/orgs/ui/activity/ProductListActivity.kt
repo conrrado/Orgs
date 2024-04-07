@@ -34,16 +34,17 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
         val recyclerViewProduct = binding.productListRecyclerView
         recyclerViewProduct.layoutManager = LinearLayoutManager(this)
         recyclerViewProduct.adapter = adapter
-        adapter.onClickProductItem = object : ProductListAdapter.OnClickProductItem {
-            override fun onClickItem(product: Product) {
-                Log.i(ProductListActivity::class.simpleName, "click on item: ${product.name}")
-
-                val intent = Intent(baseContext, DetailProductActivity::class.java).apply {
-                    putExtra("product", product)
-                }
-                startActivity(intent)
-            }
+        adapter.onClickProductItem = {
+            Log.i(ProductListActivity::class.simpleName, "click on item: ${it.name}")
+            openDetailProduct(it)
         }
+    }
+
+    private fun openDetailProduct(product: Product) {
+        val intent = Intent(baseContext, DetailProductActivity::class.java).apply {
+            putExtra("product", product)
+        }
+        startActivity(intent)
     }
 
     private fun configFab() {

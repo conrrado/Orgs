@@ -11,16 +11,8 @@ import com.conrradocamacho.orgs.model.Product
 
 class ProductListAdapter(
     products: List<Product>,
-    var onClickProductItem: OnClickProductItem = object : OnClickProductItem {
-        override fun onClickItem(product: Product) {
-
-        }
-    }
+    var onClickProductItem: (product: Product) -> Unit = {}
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
-
-    interface OnClickProductItem {
-        fun onClickItem(product: Product)
-    }
 
     private val products = products.toMutableList()
 
@@ -55,7 +47,7 @@ class ProductListAdapter(
             itemView.setOnClickListener {
                 Log.i(ProductListAdapter::class.simpleName, "Click on item")
                 if (::product.isInitialized) {
-                    onClickProductItem.onClickItem(product)
+                    onClickProductItem(product)
                 }
             }
         }
@@ -68,5 +60,4 @@ class ProductListAdapter(
             image.tryLoadingImage(product.image)
         }
     }
-
 }
