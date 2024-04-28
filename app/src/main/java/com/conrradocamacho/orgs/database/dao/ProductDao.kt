@@ -9,8 +9,8 @@ import com.conrradocamacho.orgs.model.Product
 interface ProductDao {
 
     @Query("SELECT * FROM Product")
-    fun findAll(): List<Product>
+    fun getAll(): List<Product>
 
     @Insert
-    fun save(product: Product)
+    fun save(vararg product: Product)
 }
