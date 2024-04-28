@@ -6,15 +6,14 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.conrradocamacho.orgs.R
-import com.conrradocamacho.orgs.dao.ProductDAO
+import com.conrradocamacho.orgs.database.AppDatabase
 import com.conrradocamacho.orgs.databinding.ActivityProductListBinding
 import com.conrradocamacho.orgs.model.Product
 import com.conrradocamacho.orgs.ui.recyclerview.adapter.ProductListAdapter
 
 class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
-    private val dao = ProductDAO()
-    private val adapter = ProductListAdapter(dao.searchAll())
+    private val adapter = ProductListAdapter()
     private val binding by lazy { ActivityProductListBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +25,9 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
     override fun onResume() {
         super.onResume()
-        adapter.update(dao.searchAll())
-
+        val db = AppDatabase.getInstance(this)
+        val productDao = db.productDao()
+        adapter.update(productDao.getAll())
     }
 
     private fun configRecyclerView() {

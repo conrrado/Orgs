@@ -10,7 +10,7 @@ import com.conrradocamacho.orgs.extensions.tryLoadingImage
 import com.conrradocamacho.orgs.model.Product
 
 class ProductListAdapter(
-    products: List<Product>,
+    products: List<Product> = emptyList(),
     var onClickProductItem: (product: Product) -> Unit = {}
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 

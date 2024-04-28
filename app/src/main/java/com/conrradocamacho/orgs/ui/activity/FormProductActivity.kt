@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.conrradocamacho.orgs.R
-import com.conrradocamacho.orgs.dao.ProductDAO
+import com.conrradocamacho.orgs.database.AppDatabase
 import com.conrradocamacho.orgs.databinding.ActivityFormProductBinding
 import com.conrradocamacho.orgs.extensions.tryLoadingImage
 import com.conrradocamacho.orgs.model.Product
@@ -33,10 +33,11 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
 
     private fun configSaveButton() {
         val save = binding.formProductSave
-        val dao = ProductDAO()
+        val db = AppDatabase.getInstance(this)
+        val productDao = db.productDao()
         save.setOnClickListener {
-            val product = createProduct()
-            dao.add(product)
+            val newProduct = createProduct()
+            productDao.save(newProduct)
             finish()
         }
     }
