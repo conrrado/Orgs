@@ -7,4 +7,6 @@
     <string name="add_a_new_product">Add a new product</string>
     <string name="refresh">Refresh</string>
     <string name="image_url">Image URL</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_delete">Delete</string>
 </resources>

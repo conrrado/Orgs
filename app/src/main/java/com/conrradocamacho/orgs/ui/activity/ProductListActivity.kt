@@ -15,6 +15,7 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
     private val adapter = ProductListAdapter()
     private val binding by lazy { ActivityProductListBinding.inflate(layoutInflater) }
+    private val TAG = this::class.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +36,20 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
         recyclerViewProduct.layoutManager = LinearLayoutManager(this)
         recyclerViewProduct.adapter = adapter
         adapter.onClickProductItem = {
-            Log.i(ProductListActivity::class.simpleName, "click on item: ${it.name}")
+            Log.i(TAG, "click on item: ${it.name}")
             openDetailProduct(it)
+        }
+        adapter.onMenuProductEdit = {
+            Log.i(TAG, "click on menu edit, product id: ${it.id}")
+        }
+        adapter.onMenuProductDelete = {
+            Log.i(TAG, "click on menu delete, product id: ${it.id}")
         }
     }
 
     private fun openDetailProduct(product: Product) {
         val intent = Intent(baseContext, DetailProductActivity::class.java).apply {
-            putExtra("product", product)
+            putExtra("product_id", product.id)
         }
         startActivity(intent)
     }
