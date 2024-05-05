@@ -10,16 +10,18 @@ import com.conrradocamacho.orgs.database.AppDatabase
 import com.conrradocamacho.orgs.databinding.ActivityDetailProductBinding
 import com.conrradocamacho.orgs.extensions.formatPrice
 import com.conrradocamacho.orgs.extensions.tryLoadingImage
+import com.conrradocamacho.orgs.model.Product
 
 class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product) {
 
-    private val binding by lazy { ActivityDetailProductBinding.inflate(layoutInflater) }
     private val TAG = this::class.simpleName
+    private val binding by lazy { ActivityDetailProductBinding.inflate(layoutInflater) }
+    private lateinit var product: Product
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val productId: Long = intent.getLongExtra("product_id", 0L)
+        val productId = intent.getLongExtra("product_id", 0L)
         populateFields(productId)
     }
 
@@ -29,12 +31,18 @@ class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.menu_detail_product_edit -> {
-                Log.i(TAG, "onOptionsItemSelected edit")
-            }
-            R.id.menu_detail_product_delete -> {
-                Log.i(TAG, "onOptionsItemSelected delete")
+        // check if produt was inicialized
+        if (::product.isInitialized) {
+            val db = AppDatabase.getInstance(this)
+            val productDao = db.productDao()
+            when(item.itemId) {
+                R.id.menu_detail_product_edit -> {
+                    Log.i(TAG, "onOptionsItemSelected edit")
+                }
+                R.id.menu_detail_product_delete -> {
+                    productDao.delete(product)
+                    finish()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
@@ -43,7 +51,7 @@ class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product
     private fun populateFields(productId: Long) {
         val db = AppDatabase.getInstance(this)
         val productDao = db.productDao()
-        val product = productDao.getById(productId)
+        product = productDao.getById(productId)
         product.let {
             binding.apply {
                 detailProductImage.tryLoadingImage(it.image)

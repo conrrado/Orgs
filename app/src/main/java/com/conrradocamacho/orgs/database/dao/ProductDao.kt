@@ -1,6 +1,7 @@
 package com.conrradocamacho.orgs.database.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.conrradocamacho.orgs.model.Product
@@ -16,4 +17,7 @@ interface ProductDao {
 
     @Insert
     fun save(vararg product: Product)
+
+    @Delete
+    fun delete(product: Product)
 }
