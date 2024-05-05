@@ -49,7 +49,7 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
     private fun openDetailProduct(product: Product) {
         val intent = Intent(baseContext, DetailProductActivity::class.java).apply {
-            putExtra("product_id", product.id)
+            putExtra(DetailProductActivity.product_id_key, product.id)
         }
         startActivity(intent)
     }

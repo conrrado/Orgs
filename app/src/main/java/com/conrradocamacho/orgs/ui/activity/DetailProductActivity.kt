@@ -1,5 +1,6 @@
 package com.conrradocamacho.orgs.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,6 +15,10 @@ import com.conrradocamacho.orgs.model.Product
 
 class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product) {
 
+    companion object {
+        val product_id_key = "product_id"
+    }
+
     private val TAG = this::class.simpleName
     private val binding by lazy { ActivityDetailProductBinding.inflate(layoutInflater) }
     private lateinit var product: Product
@@ -21,7 +26,7 @@ class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val productId = intent.getLongExtra("product_id", 0L)
+        val productId = intent.getLongExtra(product_id_key, 0L)
         populateFields(productId)
     }
 
@@ -37,7 +42,10 @@ class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product
             val productDao = db.productDao()
             when(item.itemId) {
                 R.id.menu_detail_product_edit -> {
-                    Log.i(TAG, "onOptionsItemSelected edit")
+                    Intent(this, FormProductActivity::class.java).apply {
+                        putExtra(product_id_key, product.id)
+                        startActivity(this)
+                    }
                 }
                 R.id.menu_detail_product_delete -> {
                     productDao.delete(product)

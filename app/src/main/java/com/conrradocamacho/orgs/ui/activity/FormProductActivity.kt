@@ -15,6 +15,7 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
 
     private val binding by lazy { ActivityFormProductBinding.inflate(layoutInflater) }
     private var url: String? = null
+    private var productId: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,20 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
                 binding.formProductImage.tryLoadingImage(url)
             }
         }
+
+        val db = AppDatabase.getInstance(this)
+        val productDao = db.productDao()
+        productId = intent.getLongExtra(DetailProductActivity.product_id_key, 0L)
+        if (productId > 0L) {
+            productDao.getById(productId).let { loadedProduct ->
+                title = "Alterar produto"
+                url = loadedProduct.image
+                binding.formProductImage.tryLoadingImage(url)
+                binding.formProductNameEdit.setText(loadedProduct.name)
+                binding.formProductDescriptionEdit.setText(loadedProduct.description)
+                binding.formProductPriceEdit.setText(loadedProduct.price.toPlainString())
+            }
+        }
     }
 
     private fun configSaveButton() {
@@ -37,7 +52,11 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         val productDao = db.productDao()
         save.setOnClickListener {
             val newProduct = createProduct()
-            productDao.save(newProduct)
+            if (productId > 0L) {
+                productDao.update(newProduct)
+            } else {
+                productDao.save(newProduct)
+            }
             finish()
         }
     }
@@ -54,6 +73,7 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         }
 
         return Product(
+            id = productId,
             name = nameEdit.text.toString(),
             description = descriptionEdit.text.toString(),
             price = value,
