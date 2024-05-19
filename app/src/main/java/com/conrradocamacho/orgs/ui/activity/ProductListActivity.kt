@@ -3,6 +3,8 @@ package com.conrradocamacho.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.conrradocamacho.orgs.R
@@ -19,6 +21,7 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
     private val adapter = ProductListAdapter()
     private val binding by lazy { ActivityProductListBinding.inflate(layoutInflater) }
+    private val productDao by lazy { AppDatabase.getInstance(this).productDao() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +32,6 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
     override fun onResume() {
         super.onResume()
-        val db = AppDatabase.getInstance(this)
-        val productDao = db.productDao()
         adapter.update(productDao.getAll())
     }
 
@@ -67,5 +68,37 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
     private fun callProductForm() {
         val intent = Intent(this, FormProductActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_list_product, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.item_sort_by_name_desc -> {
+                adapter.update(productDao.getAllOrderByNameDesc())
+            }
+            R.id.item_sort_by_name_asc -> {
+                adapter.update(productDao.getAllOrderByNameAsc())
+            }
+            R.id.item_sort_by_description_desc -> {
+                adapter.update(productDao.getAllOrderByDescriptionDesc())
+            }
+            R.id.item_sort_by_description_asc -> {
+                adapter.update(productDao.getAllOrderByDescriptionAsc())
+            }
+            R.id.item_sort_by_price_desc -> {
+                adapter.update(productDao.getAllOrderByPriceDesc())
+            }
+            R.id.item_sort_by_price_asc -> {
+                adapter.update(productDao.getAllOrderByPriceAsc())
+            }
+            R.id.item_without_sort -> {
+                adapter.update(productDao.getAll())
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

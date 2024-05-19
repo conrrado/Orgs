@@ -9,4 +9,12 @@
     <string name="image_url">Image URL</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_delete">Delete</string>
+    <string name="menu_sort_by">Sort by</string>
+    <string name="sort_by_name_desc">Sort by name desc</string>
+    <string name="sort_by_name_asc">Sort by name asc</string>
+    <string name="sort_by_description_desc">Sort by description desc</string>
+    <string name="sort_by_description_asc">Sort by description asc</string>
+    <string name="sort_by_price_desc">Sort by price desc</string>
+    <string name="sort_by_price_asc">Sort by price asc</string>
+    <string name="without_sort">Without sort</string>
 </resources>
