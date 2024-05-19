@@ -14,11 +14,6 @@ import com.conrradocamacho.orgs.model.Product
 
 class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product) {
 
-    companion object {
-        const val PRODUCT_ID_KEY = "product_id"
-        private val TAG = this::class.simpleName
-    }
-
     private val binding by lazy { ActivityDetailProductBinding.inflate(layoutInflater) }
     private var product: Product? = null
     private val productDao by lazy { AppDatabase.getInstance(this).productDao() }
@@ -30,6 +25,10 @@ class DetailProductActivity : AppCompatActivity(R.layout.activity_detail_product
 
     override fun onResume() {
         super.onResume()
+        getProduct()
+    }
+
+    private fun getProduct() {
         val productId = intent.getLongExtra(PRODUCT_ID_KEY, 0L)
         product = productDao.getById(productId)
         product?.let {
