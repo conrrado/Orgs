@@ -33,7 +33,7 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
 
         val db = AppDatabase.getInstance(this)
         val productDao = db.productDao()
-        productId = intent.getLongExtra(DetailProductActivity.product_id_key, 0L)
+        productId = intent.getLongExtra(DetailProductActivity.PRODUCT_ID_KEY, 0L)
         if (productId > 0L) {
             productDao.getById(productId).let { loadedProduct ->
                 title = "Alterar produto"

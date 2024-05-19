@@ -20,8 +20,11 @@ class ProductListAdapter(
     var onMenuProductDelete: (product: Product) -> Unit = {}
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
+    companion object {
+        private val TAG = this::class.simpleName
+    }
+
     private val products = products.toMutableList()
-    private val TAG = this::class.simpleName
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

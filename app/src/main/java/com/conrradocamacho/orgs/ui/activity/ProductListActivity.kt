@@ -13,9 +13,12 @@ import com.conrradocamacho.orgs.ui.recyclerview.adapter.ProductListAdapter
 
 class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
+    companion object {
+        private val TAG = this::class.simpleName
+    }
+
     private val adapter = ProductListAdapter()
     private val binding by lazy { ActivityProductListBinding.inflate(layoutInflater) }
-    private val TAG = this::class.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +52,7 @@ class ProductListActivity: AppCompatActivity(R.layout.activity_product_list) {
 
     private fun openDetailProduct(product: Product) {
         val intent = Intent(baseContext, DetailProductActivity::class.java).apply {
-            putExtra(DetailProductActivity.product_id_key, product.id)
+            putExtra(DetailProductActivity.PRODUCT_ID_KEY, product.id)
         }
         startActivity(intent)
     }
